@@ -78,6 +78,7 @@ body {
     max-width: 1920px;
     margin: 0 auto;
     padding: 0;
+    position: relative;
 }
 
 .slider {
@@ -90,7 +91,6 @@ body {
 
 .gallery-wrapper {
     width: 100%;
-/*    height: 1024px;*/
 }
 
 .gallery-wrapper img {
@@ -257,7 +257,9 @@ body {
     font-size: 14px;
     font-weight: 800;
     text-align: center;
-    color: #ffffff;   
+    color: #ffffff;
+    
+    transition: all 0.5s;
 }
 
 .button-link:hover {
@@ -308,8 +310,6 @@ body {
     border: solid 2px #d3c1ad; 
 }
 
-
-
 /* Services */
 
 .services {
@@ -322,13 +322,9 @@ body {
     flex-wrap: wrap;
 }
 
-.services-item-link {
+.services-item {
     width: 266px;
     padding-top: 30px;
-    text-decoration: none;
-}
-
-.services-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -356,25 +352,40 @@ body {
     text-align: center;
 }
 
+
+
 .services-item::after {
     content: "";
     display: block;
     width: 70px;
     margin-top: 30px;
     border-bottom: 3px solid #f1eee9;
-
+    transform-origin: top left;
 }
 
-.services-item-link:hover .services-item-title {
+.services-item:hover {
+    cursor: default;
+}
+
+.services-item:hover .services-item-title {
     color: #c7b299;
+    transition: color 0.3s;
 }
 
-.services-item-link:hover .services-item-icon {
+.services-item:hover .services-item-icon {
     fill: #c7b299;
+    transition: fill 0.3s;
 }
 
-.services-item-link:hover .services-item::after {
+@keyframes growUpDown-width {
+    0% { width: 70px;}
+    50% {width: 100%}
+    100% {width: 70px;}
+}
+
+.services-item:hover::after {
     border-color: #c7b299;
+    animation: growUpDown-width 0.5s;
 }
 
 /* Waxom is Realization of your Ideas */
@@ -513,21 +524,34 @@ body {
     position: relative;
 }
 
+.projects-item-img::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s ease 0s;
+}
+
 .projects-item-img img {
     display: block;
 }
 
 .projects-item-icons-wrapper {
     width: 100%;
-/*
-    display: flex;
-    justify-content: center;
-*/
     position: absolute;
     top: 45%;
-    left: 0;
+    left: 10px;
     z-index: 2;
-    display: none;
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease 0s;
 }
 
 .projects-item-link {
@@ -545,11 +569,11 @@ body {
     fill: #c7b299;
 }
 
-
 .projects-item-description {
     padding: 28px;
     background-color: #fbfaf8;
     position: relative;
+    transition: background-color 0.5s ease 0s;
 }
 
 .projects-item-description::before {
@@ -559,12 +583,13 @@ body {
     width: 30px;
     height: 10px;
     position: absolute;
-    top: -10px;
+    top: 0px;
     left: 20px;
     z-index: 2;
     border-bottom: 10px solid #fbfaf8;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
+    transition: top .5s ease 0s, border-bottom-color 0.5s ease 0s;
 }
 
 .projects-item-title {
@@ -584,20 +609,12 @@ body {
 }
 
 .projects-item:hover .projects-item-img::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    opacity: 0.7;
 }
 
 .projects-item:hover .projects-item-icons-wrapper {
-    display: flex;
-    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.4s ease 0.2s;
 }
 
 .projects-item:hover .projects-item-title {
@@ -614,6 +631,7 @@ body {
 
 .projects-item:hover .projects-item-description::before {
     border-bottom-color: #362f2d;
+    top: -10px;
 }
 
 /* Waxom Video Presentation */
@@ -649,16 +667,41 @@ body {
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.2);
     text-align: center;
+    position: relative;
+}
+
+@keyframes rotation {
+    to {transform: rotate(360deg)}
+}
+.play-cercle {
+    display: block;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 15px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #fff transparent;
+    animation: rotation 1s ease infinite;
+    transition: border-color 0.3s;
 }
 
 .video-play-icon {
     width: 70px;
     height: 70px;
     fill: #fff;
+    transition: fill 0.3s;
 }
 
 .video-button-play:hover .video-play-icon {
     fill: #c7b299;
+}
+
+.video-button-play:hover .play-cercle {
+    animation-play-state: paused;
+    border-color: #c7b299 transparent;
 }
 
 .video-content-wrapper .section-text {
@@ -729,6 +772,7 @@ body {
     width: 54px;
     height: 44px;
     fill: #c7b299;
+    transition: all 0.3s 0.3s;
 }
 
 .counter-item-value {
@@ -738,6 +782,7 @@ body {
     line-height: 0.75;
     text-align: center;
     color: #ffffff;
+    transition: color 0.3s 0.3s;
 }
 
 .counter-item-title {
@@ -752,18 +797,25 @@ body {
     width: 30px;
     margin-top: 30px;
     border-bottom: 2px solid #fff;
+    transition: all 0.3s 0.3s;
 }
+
 
 .counter-item:hover .counter-item-icon {
     fill: #fff;
+    transform: scale(-1, 1);
+    transition: all 0.3s 0s;
 }
 
 .counter-item:hover .counter-item-value {
     color: #c7b299;
+    transition: color 0.3s 0s;
 }
 
 .counter-item:hover::after {
     border-bottom-color: #c7b299;
+    width: 100%;
+    transition: all 0.3s 0s;
 }
 
 /* Recent Posts. */
@@ -778,6 +830,7 @@ body {
 .posts-item-description {
     padding: 30px;
     background-color: #f8f8f8;
+    transition: background-color 0.5s ease 0s;
 }
 
 .posts-item-title {
@@ -814,6 +867,7 @@ body {
     line-height: 35px;
     font-size: 24px;
     background-color: #363636;
+    transition: background-color 0.5s ease 0s;
 }
 .posts-date-month {
     width: 100%;
@@ -822,9 +876,20 @@ body {
     line-height: 25px;
     font-size: 12px;
     background-color: #252525;
+    transition: background-color 0.5s ease 0s;
 }
 
-.post-item-details {}
+
+.post-item-details{
+    height: 1em; 
+    transition: height 0.5s ease 0s; /* не работает для height:auto */
+}
+
+.post-item-details:not([open]) {}
+
+.post-item-details[open] {
+    height: 120px;    
+}
 
 .post-item-details summary {
     color: #c7b299;
@@ -883,7 +948,6 @@ summary:focus {
     fill: #d1d1d1;
 }
 
-
 .posts-control-button:hover svg {
     fill: #c7b299;
 }
@@ -909,6 +973,7 @@ summary:focus {
     background-size: contain;
     background-position: center;
     z-index: 2;
+    transition: all 0.8s ease 0s;
 }
 
 .partner-1 {
@@ -925,9 +990,7 @@ summary:focus {
 }
 
 .partners-link:hover {
-    width: 220px;
-    height: 220px;
-    margin: 0px 35px;
+    transform: scale(1.5);
 }
 
 /* Footer */
@@ -1021,6 +1084,11 @@ summary:focus {
 .dribbble-widget-img {
     width: 130px;
     margin-top: 10px;
+    transition: transform 0.5s;
+}
+
+.dribbble-widget-img:hover {
+    transform: scale(1.2);
 }
 
 .copyright {
