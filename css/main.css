@@ -371,8 +371,7 @@ body {
 }
 
 .circle:hover,
-.circle-active,
-.active{
+.circle.active{
     background: none;
     border: solid 2px #d3c1ad; 
 }
